@@ -1,7 +1,10 @@
 package com.map.flappybird.game;
 
+import static android.content.Intent.getIntent;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
@@ -32,19 +35,15 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
     private GameStart gameStart;
     private Score score;
 
-    public GameManager(Context context) {
+    public GameManager(Context context, String userId) {
         super(context);
+        this.userId = userId;
         getHolder().addCallback(this);
         thread = new GameThread(getHolder(), this);
-
         dm = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         initGame();
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     private void initGame() {
@@ -53,7 +52,7 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
         obstacleManager = new ObstacleManager(getResources(), dm.heightPixels, dm.widthPixels, this);
         gameOver = new GameOver(getResources(), dm.heightPixels, dm.widthPixels);
         gameStart = new GameStart(getResources(), dm.heightPixels, dm.widthPixels);
-        score = new Score(getResources(), dm.heightPixels, dm.widthPixels);
+        score = new Score(getResources(), dm.heightPixels, dm.widthPixels, getContext().getApplicationContext());
     }
 
     @Override
@@ -164,6 +163,7 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
             gameState = GameState.GAME_OVER;
             bird.collision();
             score.collision();
+            score.saveScore(userId);
         }
     }
 }

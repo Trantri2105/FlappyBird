@@ -11,4 +11,5 @@
     <color name="colorPrimaryDark">#3700B3</color> <!-- Màu tối -->
     <color name="colorAccent">#03DAC5</color> <!-- Màu nhấn -->
     <color name="colorGray">#BDBDBD</color> <!-- Màu xám -->
+    <color name="link_blue">#0000EE</color>
 </resources>

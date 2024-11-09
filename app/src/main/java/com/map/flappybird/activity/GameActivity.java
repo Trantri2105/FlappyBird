@@ -1,5 +1,6 @@
 package com.map.flappybird.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -13,8 +14,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        GameManager gameManager = new GameManager(this);
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("USERID");
+        GameManager gameManager = new GameManager(this, userId);
         setContentView(gameManager);
-        gameManager.setUserId("abcdxyz");
     }
 }

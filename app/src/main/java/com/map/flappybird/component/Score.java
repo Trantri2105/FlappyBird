@@ -1,11 +1,13 @@
 package com.map.flappybird.component;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import com.map.flappybird.R;
+import com.map.flappybird.http.HttpClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,11 +30,13 @@ public class Score {
     private int screenHeight, screenWidth;
     private int score;
     private boolean collision = false;
+    private HttpClient httpClient;
 
 
-    public Score(Resources resources, int screenHeight, int screenWidth) {
+    public Score(Resources resources, int screenHeight, int screenWidth, Context context) {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
+        this.httpClient = new HttpClient(context);
         bmpScore = BitmapFactory.decodeResource(resources, R.drawable.score);
         zero = BitmapFactory.decodeResource(resources, R.drawable.zero);
         one = BitmapFactory.decodeResource(resources, R.drawable.one);
@@ -98,5 +102,9 @@ public class Score {
 
     public void collision() {
         collision = true;
+    }
+
+    public void saveScore(String userId) {
+        httpClient.saveScore(score,userId);
     }
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.map.flappybird.R;
 
 public class MenuActivity extends AppCompatActivity {
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +21,11 @@ public class MenuActivity extends AppCompatActivity {
 
         // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
-        String userId = intent.getStringExtra("userId"); // lấy userId từ Intent
+        userId = intent.getStringExtra("userId"); // lấy userId từ Intent
         String username = intent.getStringExtra("username"); // lấy username từ Intent
 
         // Hiển thị message chào mừng
-        String welcomeText = "Welcome, " + username + " (ID: " + userId + ")";
+        String welcomeText = "\uD83D\uDC4B Welcome, " + username + " (ID: " + userId + ") \uD83E\uDD73";
         welcomeMessage.setText(welcomeText);
 
         // Xử lý sự kiện các nút bấm
@@ -35,13 +36,14 @@ public class MenuActivity extends AppCompatActivity {
 
     private void openPlay() {
             Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("USERID", userId);
             startActivity(intent);
     }
 
     private void openRanking() {
         // Mở trang RankingActivity
-//        Intent intent = new Intent(HomeActivity.this, RankingActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(MenuActivity.this, RankingActivity.class);
+        startActivity(intent);
     }
 
     private void openHistory() {

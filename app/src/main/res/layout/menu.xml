@@ -5,18 +5,21 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
-    <!-- Welcome message -->
+    <!-- Welcome Message Display - Centralized and Styled TextView -->
     <TextView
         android:id="@+id/welcomeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Welcome, User"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textColor="@android:color/primary_text_dark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/logoImage"
@@ -25,24 +28,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="32dp"
-        android:src="@drawable/app_logo"
+        android:src="@drawable/textflappy"
         app:layout_constraintDimensionRatio="H,16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/gameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Flappy Bird"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoImage" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/playButton"
@@ -59,9 +49,9 @@
         app:iconPadding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/teal_700"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/gameTitle" />
+        app:layout_constraintTop_toBottomOf="@id/logoImage" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rankingButton"
@@ -76,7 +66,7 @@
         app:iconPadding="8dp"
         app:layout_constraintEnd_toEndOf="@id/playButton"
         app:layout_constraintStart_toStartOf="@id/playButton"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/teal_700"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/playButton" />
 
@@ -93,7 +83,7 @@
         app:iconPadding="8dp"
         app:layout_constraintEnd_toEndOf="@id/rankingButton"
         app:layout_constraintStart_toStartOf="@id/rankingButton"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/teal_700"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/rankingButton" />
 
