@@ -1,6 +1,7 @@
 package com.map.flappybird.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.map.flappybird.R;
+import com.map.flappybird.activity.HistoryActivity;
 import com.map.flappybird.model.Score;
 
 import java.util.List;
@@ -36,6 +38,12 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         holder.usernameTextView.setText("User: " + score.getUsername());
         holder.scoreTextView.setText(score.getScore() + " pts");
         holder.dateTextView.setText(score.getCreatedAt());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), HistoryActivity.class);
+            intent.putExtra("userId", score.getUserId() + ""); // Lấy userId của người chơi được nhấn
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

@@ -3,13 +3,13 @@ package com.map.flappybird.http;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -124,6 +124,27 @@ public class HttpClient {
 
             // Chuyển đổi phản hồi thành JSON
             return new JSONObject(response.toString());
+        } else {
+            return null;
+        }
+    }
+
+    public JSONArray getUserHistory(int userId) throws Exception {
+        URL url = new URL("http://10.0.2.2:8080/api/score/history?userId=" + userId);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        addAuthorizationHeader(connection);
+
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            return new JSONArray(response.toString());
         } else {
             return null;
         }

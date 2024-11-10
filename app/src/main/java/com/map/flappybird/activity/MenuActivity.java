@@ -48,8 +48,9 @@ public class MenuActivity extends AppCompatActivity {
 
     private void openHistory() {
         // Mở trang HistoryActivity
-//        Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(MenuActivity.this, HistoryActivity.class);
+        intent.putExtra("userId", userId); // truyền userId vào Intent
+        startActivity(intent);
     }
 }
 

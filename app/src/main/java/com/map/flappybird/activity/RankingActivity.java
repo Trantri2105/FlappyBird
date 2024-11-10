@@ -3,11 +3,13 @@ package com.map.flappybird.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,8 @@ import com.map.flappybird.model.Score;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +46,20 @@ public class RankingActivity extends AppCompatActivity {
     private TextView textFirstPlaceScore;
     private TextView textSecondPlaceScore;
     private TextView textThirdPlaceScore;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String DateConverter(String dateStr) {
+        // Parse the date string to a ZonedDateTime object
+        ZonedDateTime zonedDateTime = null;
+        zonedDateTime = ZonedDateTime.parse(dateStr);
+
+        // Define the desired output format
+        DateTimeFormatter formatter = null;
+        formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+
+        // Format the ZonedDateTime to a more readable string
+        return formatter.format(zonedDateTime);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +131,7 @@ public class RankingActivity extends AppCompatActivity {
             }
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(JSONObject response) {
             if (response != null) {
@@ -123,19 +142,22 @@ public class RankingActivity extends AppCompatActivity {
                         topFirstPlace = new Score(
                                 scoresArray.getJSONObject(0).getString("username"),
                                 scoresArray.getJSONObject(0).getInt("score"),
-                                scoresArray.getJSONObject(0).getString("createdAt"));
+                                scoresArray.getJSONObject(0).getString("createdAt"),
+                                scoresArray.getJSONObject(0).getInt("userId"));
                     }
                     if (scoresArray.length() > 1) {
                         topSecondPlace = new Score(
                                 scoresArray.getJSONObject(1).getString("username"),
                                 scoresArray.getJSONObject(1).getInt("score"),
-                                scoresArray.getJSONObject(1).getString("createdAt"));
+                                scoresArray.getJSONObject(1).getString("createdAt"),
+                                scoresArray.getJSONObject(0).getInt("userId"));
                     }
                     if (scoresArray.length() > 2) {
                         topThirdPlace = new Score(
                                 scoresArray.getJSONObject(2).getString("username"),
                                 scoresArray.getJSONObject(2).getInt("score"),
-                                scoresArray.getJSONObject(2).getString("createdAt"));
+                                scoresArray.getJSONObject(2).getString("createdAt"),
+                                scoresArray.getJSONObject(0).getInt("userId"));
                     }
 
                     // Hiển thị top 3 người chơi
@@ -182,6 +204,7 @@ public class RankingActivity extends AppCompatActivity {
             }
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(JSONObject response) {
@@ -196,9 +219,11 @@ public class RankingActivity extends AppCompatActivity {
                         JSONObject scoreObject = scoresArray.getJSONObject(i);
                         String username = scoreObject.getString("username");
                         int score = scoreObject.getInt("score");
-                        String createdAt = scoreObject.getString("createdAt");
+                        String createdAt = DateConverter(scoreObject.getString("createdAt"));
+                        int userId = scoreObject.getInt("userId");
+//                        convertToReadableFormat(scoreObject.getString("createdAt"))
 
-                        scoreList.add(new Score(username, score, createdAt));
+                        scoreList.add(new Score(username, score, createdAt, userId));
                     }
 
                     leaderboardAdapter.notifyDataSetChanged();
@@ -221,4 +246,5 @@ public class RankingActivity extends AppCompatActivity {
         }
     }
 }
+
 
