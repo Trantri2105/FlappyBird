@@ -49,6 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        if (!isPasswordStrong(password)) {
+            Toast.makeText(this, "Password must be at least 8 characters long, include uppercase, lowercase, digit, and special character.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         RegisterController registerController = new RegisterController();
         registerController.registerUser(username, password, this);
     }
@@ -56,5 +61,14 @@ public class RegisterActivity extends AppCompatActivity {
     private void onLoginLinkClick() {
         // Redirect to LoginActivity if the user already has an account
         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+    }
+
+    private boolean isPasswordStrong(String password) {
+        if (password.length() < 8) return false;
+        if (!password.matches(".*[A-Z].*")) return false;
+        if (!password.matches(".*[a-z].*")) return false;
+        if (!password.matches(".*[0-9].*")) return false;
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?].*")) return false;
+        return true;
     }
 }
