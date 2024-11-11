@@ -22,6 +22,7 @@ import com.map.flappybird.model.Score;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,15 +51,16 @@ public class RankingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String DateConverter(String dateStr) {
         // Parse the date string to a ZonedDateTime object
-        ZonedDateTime zonedDateTime = null;
-        zonedDateTime = ZonedDateTime.parse(dateStr);
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateStr);
+
+        // Chuyển đổi sang múi giờ GMT+7
+        ZonedDateTime gmtPlus7DateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("GMT+7"));
 
         // Define the desired output format
-        DateTimeFormatter formatter = null;
-        formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
 
         // Format the ZonedDateTime to a more readable string
-        return formatter.format(zonedDateTime);
+        return formatter.format(gmtPlus7DateTime);
     }
 
     @Override
