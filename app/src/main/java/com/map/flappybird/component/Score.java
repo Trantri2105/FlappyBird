@@ -70,9 +70,9 @@ public class Score {
         } else {
             ArrayList<Bitmap> currentDigits = convertToBitmaps(score);
 
-            canvas.drawBitmap(bmpScore, screenWidth / 2 - bmpScore.getWidth() / 2, 2 * screenHeight / 4 - zero.getHeight() - bmpScore.getHeight(), null);
+            canvas.drawBitmap(bmpScore, screenWidth / 2 - bmpScore.getWidth() / 2, screenHeight / 2 - zero.getHeight() - bmpScore.getHeight(), null);
             for (int i = 0; i < currentDigits.size(); i++) {
-                int x = screenWidth / 2 - currentDigits.size() * zero.getWidth() + zero.getWidth() * i;
+                int x = screenWidth / 2 - currentDigits.size() * zero.getWidth() / 2 + zero.getWidth() * i;
                 canvas.drawBitmap(currentDigits.get(i), x, screenHeight / 2, null);
             }
         }

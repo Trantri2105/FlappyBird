@@ -28,36 +28,30 @@ public class GameThread extends Thread{
         long targetTime = 1000 / targetFPS;
         while (running) {
             startTime = System.nanoTime();
-            canvas = null;
-
             try {
                 canvas = surfaceHolder.lockCanvas();
-                synchronized (surfaceHolder) {
-                    gameManager.update();
-                    gameManager.draw(canvas);
-                }
-            } catch (Exception e){
+                gameManager.update();
+                gameManager.draw(canvas);
+            } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                if(canvas != null){
-                    try {
-                        surfaceHolder.unlockCanvasAndPost(canvas);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
+            }
+
+            try {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             timeMillis = (System.nanoTime() - startTime) / 1000000;
             waitTime = targetTime - timeMillis;
-
-            try {
+            try{
                 if(waitTime > 0) {
                     sleep(waitTime);
                 }
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
             }
+
         }
     }
 }

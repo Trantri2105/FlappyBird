@@ -44,12 +44,10 @@ public class Obstacle {
         Rect bottomHead = new Rect(xPosition, screenHeight - height - headHeight, xPosition + width + 2*headExtraWidth, screenHeight - height);
         Rect topPipe = new Rect(xPosition + headExtraWidth, 0, xPosition + headExtraWidth + width, screenHeight - height - separation - 2*headHeight);
         Rect topHead = new Rect(xPosition, screenHeight - height - separation - 2*headHeight, xPosition + width + 2*headExtraWidth, screenHeight - height - separation - headHeight);
-
-        Paint paint = new Paint();
-        canvas.drawBitmap(image, null, bottomPipe, paint);
-        canvas.drawBitmap(image, null, bottomHead, paint);
-        canvas.drawBitmap(image, null, topPipe, paint);
-        canvas.drawBitmap(image, null, topHead, paint);
+        canvas.drawBitmap(image, null, bottomPipe, null);
+        canvas.drawBitmap(image, null, bottomHead, null);
+        canvas.drawBitmap(image, null, topPipe, null);
+        canvas.drawBitmap(image, null, topHead, null);
     }
 
     public void update() {

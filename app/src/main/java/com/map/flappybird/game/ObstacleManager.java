@@ -34,7 +34,7 @@ public class ObstacleManager {
             progress = 0;
             obstacles.add(new Obstacle(resources, screenHeight, screenWidth, this));
         }
-        List<Obstacle> duplicate = new ArrayList<>();
+        ArrayList<Obstacle> duplicate = new ArrayList<>();
         duplicate.addAll(obstacles);
         for (Obstacle obstacle: duplicate) {
             obstacle.update();

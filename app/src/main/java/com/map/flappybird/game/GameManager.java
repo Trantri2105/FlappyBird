@@ -48,7 +48,7 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
 
     private void initGame() {
         bird = new Bird(getResources(), dm.heightPixels);
-        background = new Background(getResources(), dm.heightPixels);
+        background = new Background(getResources(), dm.heightPixels, dm.widthPixels);
         obstacleManager = new ObstacleManager(getResources(), dm.heightPixels, dm.widthPixels, this);
         gameOver = new GameOver(getResources(), dm.heightPixels, dm.widthPixels);
         gameStart = new GameStart(getResources(), dm.heightPixels, dm.widthPixels);
@@ -68,15 +68,11 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        boolean retry = true;
-        while (retry) {
-            try {
-                thread.setRunning(false);
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            retry = false;
+        try {
+            thread.setRunning(false);
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -153,7 +149,8 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
                 Rect topRectangle = obstacle.getPositions().get(1);
                 if(birdPosition.right > bottomRectangle.left && birdPosition.left < bottomRectangle.right && birdPosition.bottom > bottomRectangle.top){
                     collision = true;
-                } else if (birdPosition.right > topRectangle.left && birdPosition.left < topRectangle.right && birdPosition.top < topRectangle.bottom) {
+                }
+                if (birdPosition.right > topRectangle.left && birdPosition.left < topRectangle.right && birdPosition.top < topRectangle.bottom) {
                     collision = true;
                 }
             }

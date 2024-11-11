@@ -13,7 +13,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         Intent intent = getIntent();
         String userId = intent.getStringExtra("USERID");
         GameManager gameManager = new GameManager(this, userId);
